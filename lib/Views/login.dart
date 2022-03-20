@@ -63,15 +63,13 @@ class _LoginPageState extends State<LoginPage> {
                     child: FlutterLogo(
                       size: 100,
                     ),
-                    
                   ),
-                  
                   const SizedBox(
                     height: 60,
                   ),
                   TextFormField(
                     controller: _emailController,
-                    style: const TextStyle(color: black),
+                    // style: const TextStyle(color: black),
                     autocorrect: true,
                     keyboardType: TextInputType.emailAddress,
                     validator: (val) =>
@@ -79,11 +77,10 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.email_outlined,
-                        color: black,
+                        // color: black,
                       ),
                       labelText: "Email",
-                      labelStyle: const TextStyle(
-                          color: black, fontWeight: FontWeight.bold),
+                      // labelStyle: const TextStyle(fontWeight: FontWeight.bold),
                       // focusedBorder: OutlineInputBorder(
                       //     borderRadius: BorderRadius.circular(20),
                       //     borderSide: const BorderSide(color: Colors.white),
@@ -92,7 +89,6 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       // filled: true,
-
                       // fillColor: const Color.fromARGB(255, 26, 24, 24),
                     ),
                   ),
@@ -101,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextFormField(
                     controller: _passController,
-                    style: const TextStyle(color: Colors.white),
+                    // style: const TextStyle(color: Colors.white),
                     autocorrect: true,
                     obscureText: true,
                     validator: (val) =>
@@ -110,25 +106,29 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.security,
-                        color: Colors.white,
+                        // color: Colors.white,
                       ),
                       labelText: "Password",
-                      labelStyle: const TextStyle(color: Colors.white),
+                      // labelStyle: const TextStyle(color: Colors.white),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: const BorderSide(color: Colors.white)),
+                        borderRadius: BorderRadius.circular(20),
+                        // borderSide: const BorderSide(color: Colors.white)
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      filled: true,
-                      fillColor: const Color.fromARGB(255, 26, 24, 24),
+                      // filled: true,
+                      // fillColor: const Color.fromARGB(255, 26, 24, 24),
                     ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   CupertinoButton(
-                    child: const Text("Sign in"),
+                    child: const Text(
+                      "Sign in",
+                      style: TextStyle(color: Colors.blueAccent),
+                    ),
                     onPressed: loginUser,
                     color: primary,
                   ),
@@ -143,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: const Text(
                       "Don't have an account ? Signup here!",
-                      style: TextStyle(color: white),
+                      // style: TextStyle(color: white),
                     ),
                   ),
                 ],

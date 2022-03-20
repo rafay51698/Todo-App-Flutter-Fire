@@ -56,7 +56,6 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -74,7 +73,7 @@ class _SignupPageState extends State<SignupPage> {
                     height: MediaQuery.of(context).size.height * 0.05,
                   ),
                   TextFormField(
-                    style: TextStyle(color: white),
+                    // style: TextStyle(color: white),
                     controller: _nameController,
                     autocorrect: true,
                     // autofocus: true,
@@ -84,31 +83,27 @@ class _SignupPageState extends State<SignupPage> {
                     validator: (val) =>
                         val!.isEmpty ? "This field must not be empty!" : null,
                     decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.person,
-                          color: white,
-                        ),
-                        // prefixIconColor: Colors.white,
+                      prefixIcon: Icon(
+                        Icons.person,
+                      ),
+                      // prefixIconColor: Colors.white,
 
-                        labelText: "Username",
-                        labelStyle: TextStyle(color: white),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: white)),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        helperText: "Abdul Rafay",
-                        helperStyle: TextStyle(color: white),
-                        filled: true,
-                        fillColor: primary),
+                      labelText: "Username",
+                      // labelStyle: TextStyle(color: white),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      helperText: "Abdul Rafay",
+                    ),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.03,
                   ),
                   TextFormField(
                     controller: _emailController,
-                    style: TextStyle(color: white),
                     autocorrect: true,
                     keyboardType: TextInputType.emailAddress,
                     validator: (val) =>
@@ -116,17 +111,16 @@ class _SignupPageState extends State<SignupPage> {
                     decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.email_outlined,
-                        color: white,
                       ),
                       labelText: "Email",
-                      labelStyle: TextStyle(color: white),
-                      filled: true,
-                      fillColor: primary,
+                      // labelStyle: TextStyle(color: white),
+
                       helperText: "rafay@gmail.com",
-                      helperStyle: TextStyle(color: white),
+                      // helperStyle: TextStyle(color: white),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(color: white)),
+                        borderRadius: BorderRadius.circular(20),
+                        // borderSide: BorderSide(color: white),
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -137,7 +131,6 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   TextFormField(
                     controller: _passController,
-                    style: TextStyle(color: white),
                     autocorrect: true,
                     obscureText: true,
                     validator: (val) =>
@@ -146,25 +139,26 @@ class _SignupPageState extends State<SignupPage> {
                     decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.security,
-                        color: white,
                       ),
                       labelText: "Password",
-                      labelStyle: TextStyle(color: Colors.white),
+                      // labelStyle: TextStyle(color: Colors.white),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(color: Colors.white)),
+                        borderRadius: BorderRadius.circular(20),
+                        // borderSide: BorderSide(color: Colors.white),
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      filled: true,
-                      fillColor: primary,
                     ),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.03,
                   ),
                   CupertinoButton(
-                    child: const Text("Signup"),
+                    child: const Text(
+                      "Signup",
+                      style: TextStyle(color: Colors.blueAccent),
+                    ),
                     onPressed: createUser,
                     color: primary,
                   ),
@@ -182,7 +176,6 @@ class _SignupPageState extends State<SignupPage> {
                     },
                     child: Text(
                       "Already a member? login here!",
-                      style: TextStyle(color: white),
                     ),
                   ),
                 ],

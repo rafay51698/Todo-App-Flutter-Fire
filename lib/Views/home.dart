@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/theme/colors.dart';
@@ -10,9 +11,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // backgroundColor: background,
+        // foregroundColor: black,
         centerTitle: true,
-        title: const Text("My Todo List "),
-        actions: const [Icon(Icons.more_vert)],
+        title: const Text(
+          "Todoee ",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+        ),
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+        ],
       ),
       body: const UserInformation(),
     );
@@ -31,29 +39,36 @@ class _UserInformationState extends State<UserInformation> {
   TextEditingController descriptController = TextEditingController();
 
   addTodo() async {
-    var time = DateTime.now();
-    await FirebaseFirestore.instance
-        .collection('todos')
-        .doc(uid)
-        .collection("mytasks")
-        .doc(time.toString())
-        .set({
-          
-          
-      'title': titleController.text,
-      'description': descriptController.text,
-      'time': time.toString(),
-      'timestamp': time,
-      'ischecked': false,
-    });
-    titleController.clear();
-    descriptController.clear();
-    Navigator.pop(context);
+    if (titleController.text != "" && descriptController.text != "") {
+      var time = DateTime.now();
 
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text("Task Added "),
-      duration: Duration(seconds: 3),
-    ));
+      await FirebaseFirestore.instance
+          .collection('todos')
+          .doc(uid)
+          .collection("mytasks")
+          .doc(time.toString())
+          .set({
+        'title': titleController.text,
+        'description': descriptController.text,
+        'time': time.toString(),
+        'timestamp': time,
+        'ischecked': false,
+      });
+      titleController.clear();
+      descriptController.clear();
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Task Added "),
+        duration: Duration(seconds: 3),
+      ));
+    } else {
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("No title or description added"),
+        ),
+      );
+    }
   }
 
   String uid = '';
@@ -87,7 +102,7 @@ class _UserInformationState extends State<UserInformation> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: background,
+        // backgroundColor: background,
         body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('todos')
@@ -110,15 +125,12 @@ class _UserInformationState extends State<UserInformation> {
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
                         "My Tasks",
                         style: TextStyle(
-                            // color: background,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25),
+                            fontWeight: FontWeight.bold, fontSize: 25),
                       ),
                       ListView.builder(
                         shrinkWrap: true,
@@ -133,14 +145,20 @@ class _UserInformationState extends State<UserInformation> {
                               physics: const NeverScrollableScrollPhysics(),
                               children: [
                                 Container(
-                                  // padding: EdgeInsets.all(5),
-                                  margin: const EdgeInsets.only(top: 10),
+                                  padding: const EdgeInsets.only(top: 8),
+                                  margin: const EdgeInsets.only(top: 14),
                                   height:
                                       MediaQuery.of(context).size.height * 0.12,
                                   decoration: BoxDecoration(
-                                    color: white,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
+                                      // color: white,
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4,
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 6,
+                                        ),
+                                      ]),
                                   child: ListTile(
                                     leading: Checkbox(
                                         checkColor: white,
@@ -166,16 +184,21 @@ class _UserInformationState extends State<UserInformation> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     subtitle: Text(
-                                      DateFormat.yMd().add_jm().format(time),
+                                      docs[index]['description'] +
+                                          "\n" +
+                                          DateFormat.yMd()
+                                              .add_jm()
+                                              .format(time),
                                       style: const TextStyle(
                                         fontSize: 12,
                                         // color: ,
                                       ),
                                     ),
+                                    // isThreeLine: true,
                                     trailing: IconButton(
                                         icon: const Icon(
                                           Icons.delete,
-                                          color: black,
+                                          // color: black,
                                         ),
                                         onPressed: () async {
                                           await FirebaseFirestore.instance
@@ -184,6 +207,12 @@ class _UserInformationState extends State<UserInformation> {
                                               .collection('mytasks')
                                               .doc(docs[index]['time'])
                                               .delete();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(" Task Deleted! "),
+                                            ),
+                                          );
                                         }),
                                   ),
                                 )
@@ -198,8 +227,8 @@ class _UserInformationState extends State<UserInformation> {
           },
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: primary,
-          foregroundColor: Colors.white,
+          // backgroundColor: primary,
+          // foregroundColor: Colors.white,4
           splashColor: Colors.white,
           onPressed: () {
             setState(() {
@@ -225,8 +254,8 @@ class _UserInformationState extends State<UserInformation> {
             title: const Text("Add Todo"),
             // contentPadding: EdgeInsets.all(10),
             content: Container(
-              color: Colors.white70,
-              height: 160,
+              // color: Colors.white70,
+              height: MediaQuery.of(context).size.height * 0.28,
               width: 400,
               child: Column(
                 children: [
@@ -254,7 +283,7 @@ class _UserInformationState extends State<UserInformation> {
                       ElevatedButton(
                         onPressed: addTodo,
                         child: const Text("Add"),
-                      )
+                      ),
                     ],
                   )
                 ],
@@ -262,5 +291,12 @@ class _UserInformationState extends State<UserInformation> {
             ),
           );
         });
+  }
+
+  description(text) {
+    return Text(
+      text,
+      style: const TextStyle(fontWeight: FontWeight.bold),
+    );
   }
 }
